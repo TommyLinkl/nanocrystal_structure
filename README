@@ -1,0 +1,65 @@
+/****************************************************************************/
+
+To run this program a configuration file (conf.par is default) is required 
+and an input.par file is optional. The program can be run using:
+
+./nanocrystal.x
+
+in the directory with the configuration and optional input.par file.
+
+Currently the only wurtzite Cd/Se/S/P1/P2/Ar nanocrystals (NCs) are allowed in bonds.c
+
+/****************************************************************************/
+
+The only allowed fields (case-sensitive) in the optional input.par are:
+
+confFile = fileName (nAtoms first line then atomSymbol x y z (conf.par is default)
+confFileUnits = atomic or angstroms (atomic is default)
+maxNumBonds = 4 (CdSe/CdS/ZnS/) (4 is default)
+remDanglingAtoms = 1 (0 is default)
+numLayersToCut = 0, 1, 2,... (0 is default)
+passivate = 1 (0 is default)
+
+An example input.par:
+
+confFile = test_conf.par
+confFileUnits = angstroms
+remDanglingBonds = 1
+passivate = 1
+maxNumBonds = 6
+
+/****************************************************************************/
+
+PROGRAM OUTPUT
+
+Files:
+
+Always:
+stdout -> parameters used in the calculation along with details of cutting/ passivating steps
+nc_size.dat -> information regarding the size of the final NC
+nc_bonds.dat -> information regarding the bonds/ nearest neighbors of the final NC
+
+if remDanglingAtoms = 1 (i.e., True):
+noDanglingAtoms_conf.dat -> the original NC without any singly bonded atoms
+
+if passivate = 1 (i.e., True):
+prepassivated_conf.dat -> the NC configuration given to passivateNanocrystal
+unpassivated_conf.dat -> the final NC configuration without passivation ligands
+passivated_conf.dat -> the final NC configuration with passivation ligands
+passivated_conf_H.xyz -> the final NC configuration with P1, P2,... replaced with H for visualization
+
+if numLayersToCut = 1,2,.. (i.e, True):
+cut_conf.dat -> the NC after removing desired number of layers and all dangling atoms
+
+/****************************************************************************/
+
+For building wurtzite CdSe NCs with stacking faults:
+
+1) numStackingFaults must be set to 1,2,3,...
+2) The next lines should be type = 1 or 2 then position = -5,-4,...5
+3) Repeat the two lines generated in step (2) numStackingFault times
+4) The first stacking fault type and position should be type 1 with the
+   lowest position, followed by type 1 at higher positions, then 
+   followed by type 2 stacking faults beginning with the highest position
+
+/****************************************************************************/
