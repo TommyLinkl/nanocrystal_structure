@@ -110,7 +110,7 @@ int passivateNanocrystal(atom *passivatedAtoms, atom *origAtoms, int nOrigAtoms,
 					passPosition = retZeroVector();
 				    }
 				    else if (nBonds == 3) {
-					passPosition = retScaledVector(tmpVector, 0.7); // 75% shorter 
+					passPosition = retScaledVector(tmpVector, 0.7); // 70% shorter 
 				    }
 				    else if (nBonds == 2) { 
 					passPosition = retScaledVector(tmpVector, 0.75); // 75% shorter 

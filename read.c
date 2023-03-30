@@ -404,7 +404,6 @@ int isAtomAMetal(char *atomSymbol) {
 // Returns the atoms mass
 
 double retAtomMass(char *atomSymbol) {
-
 	if (! strcmp(atomSymbol, "Cd") || ! strcmp(atomSymbol, "Cdz")) return 112.411;
 	else if (! strcmp(atomSymbol, "Zn") || ! strcmp(atomSymbol, "Znz")) return 65.380;
 	else if (! strcmp(atomSymbol, "Se") || ! strcmp(atomSymbol, "Sez") || ! strcmp(atomSymbol, "Se1")) return 78.960;
@@ -415,7 +414,7 @@ double retAtomMass(char *atomSymbol) {
 	else if (! strcmp(atomSymbol, "As")) return 74.922;
         else if (! strcmp(atomSymbol, "P")) return 30.974;
 	else if (! strcmp(atomSymbol, "P1") || ! strcmp(atomSymbol, "P2")) return 1.0;
-    else if (! strcmp(atomSymbol, "P3") || ! strcmp(atomSymbol, "P4")) return 1.0;
+	else if (! strcmp(atomSymbol, "P3") || ! strcmp(atomSymbol, "P4")) return 1.0;
 	else {
 		writeSeparation(stdout);
 		printf("WARNING: An atom symbol was found for which no atom mass is defined in retAtomMass\n");

@@ -291,14 +291,24 @@ double retIdealBondLength(char *atom1, char *atom2) {
         else if (! strcmp(atom1, "P") && (! strcmp(atom2, "In"))) return 2.5228;
 	else if (! strcmp(atom1, "Ga") && (! strcmp(atom2, "As"))) return 2.4480;
 	else if (! strcmp(atom1, "As") && (! strcmp(atom2, "Ga"))) return 2.4480;
+	else if (! strcmp(atom1, "Ga") && (! strcmp(atom2, "P"))) return 2.36;
+	else if (! strcmp(atom1, "P") && (! strcmp(atom2, "Ga"))) return 2.36;
 	else if (! strcmp(atom1, "In") && (! strcmp(atom2, "P1"))) return 2.6228*0.6;
 	else if (! strcmp(atom1, "P1") && (! strcmp(atom2, "In"))) return 2.6228*0.6;
-	else if (! strcmp(atom1, "Ga") && (! strcmp(atom2, "P1"))) return 2.4480*0.5;
-	else if (! strcmp(atom1, "P1") && (! strcmp(atom2, "Ga"))) return 2.4480*0.5;
-	else if (! strcmp(atom1, "As") && (! strcmp(atom2, "P2"))) return 2.6228*0.6;
-	else if (! strcmp(atom1, "P2") && (! strcmp(atom2, "As"))) return 2.6228*0.6;	
-	else if (! strcmp(atom1, "P") && (! strcmp(atom2, "P2"))) return 2.5228*0.6;
-	else if (! strcmp(atom1, "P2") && (! strcmp(atom2, "P"))) return 2.5228*0.6;	
+	else if (! strcmp(atom1, "In") && (! strcmp(atom2, "P2"))) return 2.6228*0.5;
+	else if (! strcmp(atom1, "P2") && (! strcmp(atom2, "In"))) return 2.6228*0.5;
+	else if (! strcmp(atom1, "Ga") && (! strcmp(atom2, "P1"))) return 2.4480*0.6;
+	else if (! strcmp(atom1, "P1") && (! strcmp(atom2, "Ga"))) return 2.4480*0.6;
+	else if (! strcmp(atom1, "Ga") && (! strcmp(atom2, "P2"))) return 2.4480*0.5;
+	else if (! strcmp(atom1, "P2") && (! strcmp(atom2, "Ga"))) return 2.4480*0.5;
+	else if (! strcmp(atom1, "As") && (! strcmp(atom2, "P1"))) return 2.6228*0.6;
+	else if (! strcmp(atom1, "P1") && (! strcmp(atom2, "As"))) return 2.6228*0.6;	
+	else if (! strcmp(atom1, "As") && (! strcmp(atom2, "P2"))) return 2.6228*0.5;
+	else if (! strcmp(atom1, "P2") && (! strcmp(atom2, "As"))) return 2.6228*0.5;	
+	else if (! strcmp(atom1, "P") && (! strcmp(atom2, "P1"))) return 2.5228*0.6;
+	else if (! strcmp(atom1, "P1") && (! strcmp(atom2, "P"))) return 2.5228*0.6;	
+	else if (! strcmp(atom1, "P") && (! strcmp(atom2, "P2"))) return 2.5228*0.5;
+	else if (! strcmp(atom1, "P2") && (! strcmp(atom2, "P"))) return 2.5228*0.5;	
 	else if (! strcmp(atom1, atom2)) return EPS; // currently one atom type cannot bind to itself
 	else {
 		return EPS;
