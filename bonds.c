@@ -140,6 +140,7 @@ void calcNearestNeighborLists(atom *atoms, int nMaxBonds, int nAtoms) {
 				if (numBonds > nMaxBonds) { // error check
 					writeSeparation(stdout);
 					printf("PROGRAM EXITING: An atom has more than %d nearest neighbors!!\n", nMaxBonds);
+					printf("Atom number: %d has numBonds %d \n", i, numBonds);
 					writeSeparation(stdout);
 					exit(EXIT_FAILURE);
 				}

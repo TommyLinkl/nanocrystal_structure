@@ -39,16 +39,16 @@ void readInput(param *params) {
 		pf = fopen("input.par", "r");
 		while (fscanf(pf, "%s", field) != EOF && i < 16) {
 			if (! strcmp(field, "confFile")) {
-				fscanf(pf, "%s %s", tmp, &(params->confFile));
+				fscanf(pf, "%s %s", tmp, (params->confFile));
 				params->buildNewBulk = 0;
 			}
-			else if (! strcmp(field, "confFileUnits")) fscanf(pf, "%s %s", tmp, &(params->confFileUnits));
+			else if (! strcmp(field, "confFileUnits")) fscanf(pf, "%s %s", tmp, (params->confFileUnits));
 			else if (! strcmp(field, "nMaxBonds")) fscanf(pf, "%s %d", tmp, &(params->nMaxBonds));
 			else if (! strcmp(field, "remDanglingAtoms")) fscanf(pf, "%s %d", tmp, &(params->remDanglingAtoms));
 			else if (! strcmp(field, "passivate")) fscanf(pf, "%s %d", tmp, &(params->passivate));
-			else if (! strcmp(field, "centerAtomSymbol")) fscanf(pf, "%s %s", tmp, &(params->centerAtomSymbol));
+			else if (! strcmp(field, "centerAtomSymbol")) fscanf(pf, "%s %s", tmp, (params->centerAtomSymbol));
 			else if (! strcmp(field, "ncType"))  {
-				fscanf(pf, "%s %s", tmp, &(params->ncType));
+				fscanf(pf, "%s %s", tmp, (params->ncType));
 				strcpy(params->mainNC.ncType, params->ncType);
 			}
 			else if (! strcmp(field, "nLayersToCut")) {
@@ -87,7 +87,7 @@ void readInput(param *params) {
 			else if (! strcmp(field, "makeChiralNC")) {
 				fscanf(pf, "%s %d", tmp, &(params->makeChiralNC));
 				fscanf(pf, "%s %s %d", field, tmp, &(params->chiralNanocrystalParams.type));
-				fscanf(pf, "%s %s %s", field, tmp, &(params->chiralNanocrystalParams.chiralAtomSymbol));					
+				fscanf(pf, "%s %s %s", field, tmp, (params->chiralNanocrystalParams.chiralAtomSymbol));					
 			} 
 			else if (! strcmp(field, "nHalfLayersToAdd")) {
 				fscanf(pf, "%s %d", tmp, &(params->nHalfLayersToAdd));
@@ -95,15 +95,15 @@ void readInput(param *params) {
 					params->buildNewBulk = 0;
 				}
 				for (j = 0; j < params->nHalfLayersToAdd; ) {
-					fscanf(pf, "%s %s %ld", field, tmp, &(params->newLayer[j].nHalfLayers));
+					fscanf(pf, "%s %s %d", field, tmp, &(params->newLayer[j].nHalfLayers));
 					fscanf(pf, "%s %s %s", field, tmp, tmpAtomSymbol);
 					if ( isAtomAMetal(tmpAtomSymbol) ) {
 						strcpy(params->newLayer[j].metalAtomSymbol, tmpAtomSymbol);
-						fscanf(pf, "%s", &(params->newLayer[j].nonMetalAtomSymbol));
+						fscanf(pf, "%s", (params->newLayer[j].nonMetalAtomSymbol));
 					}
 					else {
 						strcpy(params->newLayer[j].nonMetalAtomSymbol, tmpAtomSymbol);
-						fscanf(pf, "%s", &(params->newLayer[j].metalAtomSymbol));
+						fscanf(pf, "%s", (params->newLayer[j].metalAtomSymbol));
 					}
 					for (k = 1; k < params->newLayer[j].nHalfLayers; k++) {
 						params->newLayer[j+k].nHalfLayers = params->newLayer[j].nHalfLayers;
@@ -117,7 +117,7 @@ void readInput(param *params) {
 				}
 			}
 			else if (! strcmp(field, "ncCrystalStructure")) { 
-				fscanf(pf, "%s %s", tmp, &(params->mainNC.ncCrystalStructure));
+				fscanf(pf, "%s %s", tmp, (params->mainNC.ncCrystalStructure));
 			}
 			else if (! strcmp(field, "nMinBonds")) fscanf(pf, "%s %d", tmp, &(params->nMinBonds));
 			// TODO: remove this and replace with above makeChiralNC
@@ -260,9 +260,9 @@ int fillNanocrystalStructure(nanostructure *nc, FILE *pf) {
 	char field[1000], tmp[1000];
 
 	while (fscanf(pf, "%s", field) != EOF) {
-		if (! strcmp(field, "ncType")) fscanf(pf, "%s %s", tmp, &(nc->ncType));
-		else if (! strcmp(field, "ncAtomSymbols")) fscanf(pf, "%s %s %s", tmp, &(nc->ncAtomSymbol1), &(nc->ncAtomSymbol2));
-		else if (! strcmp(field, "ncCrystalStructure")) fscanf(pf, "%s %s", tmp, &(nc->ncCrystalStructure));
+		if (! strcmp(field, "ncType")) fscanf(pf, "%s %s", tmp, (nc->ncType));
+		else if (! strcmp(field, "ncAtomSymbols")) fscanf(pf, "%s %s %s", tmp, (nc->ncAtomSymbol1), (nc->ncAtomSymbol2));
+		else if (! strcmp(field, "ncCrystalStructure")) fscanf(pf, "%s %s", tmp, (nc->ncCrystalStructure));
 		else if (! strcmp(field, "ncCenter")) {
 			fscanf(pf, "%s %lg %lg %lg", tmp, &(nc->ncCenter).x, &(nc->ncCenter).y, &(nc->ncCenter).z);
 			nc->ncCenter.mag = retVectorMagnitude(nc->ncCenter);

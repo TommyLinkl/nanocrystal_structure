@@ -15,6 +15,8 @@
 #include <string.h>
 #include <math.h>
 #include <sys/time.h>
+#include <time.h>
+#include <time.h>
 #include <assert.h>
 #include "vector.h"
 #include "atom.h"
@@ -188,6 +190,7 @@ void writeVectorShort(vector vect, FILE *pf);
 void writeVector(vector vect, FILE *pf);
 void writeCurrentTime(FILE *pf);
 void writeSeparation(FILE *pf);
+void writeSystemInfo(atom *atoms, param params, FILE *pf);
 
 /* Functions that handle errors/ perform error checks - errorHandling.c */
 void memoryError(const char *errorMessage);

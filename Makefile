@@ -14,8 +14,8 @@ Linux_CFLAGS = $(${OS}_OPTFLAGS)
 MAINNAM = nanocrystal
 
 # compilers
-Linux_CC = icc
-Linux_LD = icc
+Linux_CC = icx
+Linux_LD = icx
 
 # sources
 OBJECTS = \

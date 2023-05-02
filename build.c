@@ -877,7 +877,7 @@ int addAllNewLayers(atom *atoms, param params) {
 			minusXShift = retZeroVector();
 			nAddedAtoms = 0;
 			assignAtomTypes(tmpAtoms, nAtomsInNewLayer);
-			sprintf(fileName, "tmpAtoms_%ld_%ld.xyz", iHalfLayer, 0);
+			sprintf(fileName, "tmpAtoms_%d_%d.xyz", iHalfLayer, 0);
 			pf = fopen(fileName, "w");
 			writeXYZFile(tmpAtoms, nAtomsInNewLayer, 1.0, pf);
 			fclose(pf);
@@ -890,13 +890,13 @@ int addAllNewLayers(atom *atoms, param params) {
 				deepCopyAllAtoms(&(tmpAtoms[nAtomsInNewLayer  + nAddedAtoms]), tmpAtoms, nAtomsInNewLayer, params.nMaxBonds);
 				translateAllAtoms(&(tmpAtoms[nAtomsInNewLayer + nAddedAtoms]), nAtomsInNewLayer, minusXShift);
 				nAddedAtoms += nAtomsInNewLayer;
-				sprintf(fileName, "tmpAtoms_%ld_%ld.xyz", iHalfLayer, iDuplicate+1);
+				sprintf(fileName, "tmpAtoms_%d_%d.xyz", iHalfLayer, iDuplicate+1);
 				pf = fopen(fileName, "w");
 				writeXYZFile(tmpAtoms, nAtomsInNewLayer+nAddedAtoms, 1.0, pf);
 				fclose(pf);
 			}
 			nAtomsInNewLayer += nAddedAtoms;
-			fprintf(stdout, "nAtomsInNewLayer after  duplicating atoms %ld times = %d\n", iDuplicate, nAtomsInNewLayer);
+			fprintf(stdout, "nAtomsInNewLayer after  duplicating atoms %d times = %d\n", iDuplicate, nAtomsInNewLayer);
 			nAtomsInNewLayer = cutNPLFromBulk(tmpAtoms, nAtomsInNewLayer, params.nMaxBonds, 
 											0.5*maxDimensions.x+0.1, maxDimensions.y+0.1, maxDimensions.z+0.1);
 			fprintf(stdout, "nAtomsInNewLayer after  NPL x y and z cutting = %d\n", nAtomsInNewLayer);

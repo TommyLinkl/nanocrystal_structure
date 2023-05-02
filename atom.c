@@ -142,7 +142,8 @@ void deepZeroSingleAtom(atom *atoms, int index, int nMaxBonds) {
 	int i;
 
 	atoms[index].type = 0;
-	strcpy(atoms[index].symbol, '\0');
+	// strcpy(atoms[index].symbol, '\0');
+	strcpy(atoms[index].symbol, "\0");
 	atoms[index].mass = 0.0;
 	atoms[index].pos = retZeroVector();
 	for (i = 0; i < nMaxBonds; i++) {
