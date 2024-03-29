@@ -59,6 +59,10 @@
 #define AGaAsZB 5.6535    // Ga-As bond length = 2.45 A, Eg  =   eV
 // added by djasras from Fu and Zunger PRB 66, 1642 (1997) 
 #define AInPZB  5.826     // In-P bond length is 2.5228 A
+// added by tommyLin from the materials project
+#define AInPWZ 4.17     // c = 6.84, c/a = 1.6403
+#define AGaPWZ 3.84     // c = 6.33, c/a = 1.6484
+#define AGaPZB 5.45     // Ga-P bond length = 2.36 A
 
 /****************************************************************************/
 /* Structure declarations */

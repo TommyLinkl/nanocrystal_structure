@@ -13,8 +13,8 @@ int buildNewNanocrystal(atom *atoms, param params) {
 	// Dynamically allocate memory
 	bulkAtoms = (atom *) calloc(params.nAtoms, sizeof(atom));
 	for (i = 0; i < params.nAtoms; i++) {
-	 	bulkAtoms[i].neighborList = (int *) calloc(params.nMaxBonds, sizeof(int));
-	 	bulkAtoms[i].neighborPos = (vector *) calloc(params.nMaxBonds, sizeof(vector));
+		bulkAtoms[i].neighborList = (int *) calloc(params.nMaxBonds, sizeof(int));
+		bulkAtoms[i].neighborPos = (vector *) calloc(params.nMaxBonds, sizeof(vector));
 	}
 
 	// Build or read in the bulk structure that will be cut
@@ -51,8 +51,8 @@ int buildNewNanocrystal(atom *atoms, param params) {
 
 	// Free dynamically allocated memory
 	for (i = 0; i < params.nAtoms; i++) {
-	 	free(bulkAtoms[i].neighborList);
-	 	free(bulkAtoms[i].neighborPos);
+		free(bulkAtoms[i].neighborList);
+		free(bulkAtoms[i].neighborPos);
 	}
 	free(bulkAtoms);
 
@@ -286,7 +286,7 @@ int cutNPLFromBulk(atom *atoms, int nAtoms, int nMaxBonds, double nplLength, dou
 int buildBulkCrystal(atom *atoms, param params) {
 	int i, ix, iy, iz, nAtomsInUnitCell, nCells[NDIM], nAtoms = 0;
 	vector origin, requiredSize, unitCell, *primitiveVectors; // the primitive lattice vectors
-        FILE *pf;
+		FILE *pf;
 
 	// Dynamically allocate memory
 	primitiveVectors = (vector *) calloc(NDIM, sizeof(vector));
@@ -305,6 +305,7 @@ int buildBulkCrystal(atom *atoms, param params) {
 	nCells[0] = (int)(requiredSize.x/unitCell.x*2.0) + 40;
 	nCells[1] = (int)(requiredSize.y/unitCell.y*2.0) + 40;
 	nCells[2] = (int)(requiredSize.z/unitCell.z*2.0) + 40;
+	printf("nCells[0], nCells[1], nCells[2] = %d, %d, %d\n", nCells[0], nCells[1], nCells[2]);
 	for (i = 0; i < NDIM; i++) if (nCells[i] % 2) nCells[i]++; // must be even -> [0]=x [1]=y [2]=z
 	printf("Bulk crystal size in x = %.3f\n", unitCell.x * (double)(nCells[0]));
 	printf("Bulk crystal size in y = %.3f\n", unitCell.y * (double)(nCells[1]));
@@ -340,14 +341,14 @@ int buildBulkCrystal(atom *atoms, param params) {
 		addStackingFaults(atoms, nAtoms, primitiveVectors, params);
 	}
 
-        // Dipti: print bulk structure
-        // pf = fopen("bulk.xyz", "w");
-        // fprintf(pf, "%d\n", nAtoms);
-        // for (i = 0; i < nAtoms; i++) {
-        //     fprintf(pf, "%s ", atoms[i].symbol);
-        //     fprintf(pf, "% .8f % .8f % .8f\n", atoms[i].pos.x, atoms[i].pos.y, atoms[i].pos.z);
-        // }
-        // fclose(pf);
+		// Dipti: print bulk structure
+		// pf = fopen("bulk.xyz", "w");
+		// fprintf(pf, "%d\n", nAtoms);
+		// for (i = 0; i < nAtoms; i++) {
+		// 	fprintf(pf, "%s ", atoms[i].symbol);
+		// 	fprintf(pf, "% .8f % .8f % .8f\n", atoms[i].pos.x, atoms[i].pos.y, atoms[i].pos.z);
+		// }
+		// fclose(pf);
 
 	// Free dynamically allocated memory
 	free(primitiveVectors);
@@ -545,22 +546,22 @@ void addStackingFaults(atom *atoms, int nAtoms, vector *primitiveVectors, param 
 	// is needed to add the tacking faults correctly when multiple stacking faults are present
 	flag = 0;
 	for (i = 0; i < params.nStackingFaults; i++) {
-	 	flag = flag % 2;
-	 	if (params.stackFault[i].type == 1) {
-	 		addType1StackingFaults(atoms, nAtoms, primitiveVectors, params.stackFault[i].position, flag);
-	 		flag++;
-	 		minPosition = params.stackFault[i].position;
-	 	}
-	 	else if (params.stackFault[i].type == 2) {
-	 		if (params.stackFault[i].position < minPosition) flag = 0; // if below type 1s then flag = 0
-	 		addType2StackingFaults(atoms, nAtoms, primitiveVectors, params.stackFault[i].position, flag);
-	 	}
-	 	else {
-	 		writeSeparation(stdout);
-	 		printf("WARNING: No stacking fault added due to incorrect stackingFaultType!\n");
-	 		printf("stackingFaultType = 1 or 2 only!\n");
-	 		writeSeparation(stdout);
-	 	}
+		flag = flag % 2;
+		if (params.stackFault[i].type == 1) {
+			addType1StackingFaults(atoms, nAtoms, primitiveVectors, params.stackFault[i].position, flag);
+			flag++;
+			minPosition = params.stackFault[i].position;
+		}
+		else if (params.stackFault[i].type == 2) {
+			if (params.stackFault[i].position < minPosition) flag = 0; // if below type 1s then flag = 0
+			addType2StackingFaults(atoms, nAtoms, primitiveVectors, params.stackFault[i].position, flag);
+		}
+		else {
+			writeSeparation(stdout);
+			printf("WARNING: No stacking fault added due to incorrect stackingFaultType!\n");
+			printf("stackingFaultType = 1 or 2 only!\n");
+			writeSeparation(stdout);
+		}
 	}
 
 	return;
@@ -656,8 +657,8 @@ int addUnitCellAtoms(atom *atoms, int nOrigAtoms, vector *primitiveVectors, vect
 		atoms[nOrigAtoms+i].pos.y *= (primitiveVectors[0].y + primitiveVectors[1].y + primitiveVectors[2].y);
 		atoms[nOrigAtoms+i].pos.z *= (primitiveVectors[0].z + primitiveVectors[1].z + primitiveVectors[2].z);
 		atoms[nOrigAtoms+i].pos.mag = retVectorMagnitude(atoms[i].pos);
-  	}
-  	for (i = 0; i < nAtomsInUnitCell; i++) atoms[nOrigAtoms+i].pos = retAddedVectors(atoms[nOrigAtoms+i].pos, origin);
+	}
+	for (i = 0; i < nAtomsInUnitCell; i++) atoms[nOrigAtoms+i].pos = retAddedVectors(atoms[nOrigAtoms+i].pos, origin);
 
 	return nAtomsInUnitCell;
 }
@@ -801,7 +802,7 @@ int addAllNewLayers(atom *atoms, param params) {
 				}
 				// Determine if adding new metal atoms or new chalcogen
 				if ( isAtomAMetal(finalAtoms[iAtom].symbol) ) {
-				 	strcpy(newAtomSymbol, params.newLayer[iHalfLayer].nonMetalAtomSymbol);
+					strcpy(newAtomSymbol, params.newLayer[iHalfLayer].nonMetalAtomSymbol);
 				}
 				else {
 					strcpy(newAtomSymbol, params.newLayer[iHalfLayer].metalAtomSymbol);
@@ -823,7 +824,7 @@ int addAllNewLayers(atom *atoms, param params) {
 			fprintf(stdout, "\nAdding the atoms within the box:\n");
 			for (iAtom = 0; iAtom < nTmpAtoms; iAtom++) {
 				if ( isAtomAMetal(tmpAtoms[iAtom].symbol) ) {
-				 	strcpy(newAtomSymbol, params.newLayer[iHalfLayer].nonMetalAtomSymbol);
+					strcpy(newAtomSymbol, params.newLayer[iHalfLayer].nonMetalAtomSymbol);
 				}
 				else {
 					strcpy(newAtomSymbol, params.newLayer[iHalfLayer].metalAtomSymbol);
@@ -850,28 +851,28 @@ int addAllNewLayers(atom *atoms, param params) {
 			//calcNanocrystalDimensions(&maxDimensions, atomPositions, nTmpAtoms);
 			assignAtomTypes(tmpAtoms, nTmpAtoms);
 			for (iAtom = 0; iAtom < nTmpAtoms; iAtom++) {
-			 	// Determine which set of tetrohedron vectors will be used to add the new atoms
-			 	if (! strcmp(params.mainNC.ncCrystalStructure, "wurtzite")) {
-			 		wurtziteLayerFlag = getZLayer(tmpAtoms[iAtom].pos.z, centerAtomZPos[tmpAtoms[iAtom].isMetalAtomFlag], c);
-			 		iTetrohedron = (2*tmpAtoms[iAtom].isMetalAtomFlag + wurtziteLayerFlag)*params.nMaxBonds;
-			 	}
-			 	else { 
-			 		iTetrohedron = tmpAtoms[iAtom].isMetalAtomFlag*params.nMaxBonds;
-			 	}
-			 	if ( isAtomAMetal(tmpAtoms[iAtom].symbol) ) {
-			 	 	strcpy(newAtomSymbol, params.newLayer[iHalfLayer].nonMetalAtomSymbol);
-			 	}
-			 	else {
-			 		strcpy(newAtomSymbol, params.newLayer[iHalfLayer].metalAtomSymbol);
-			 	}
-			 	for (iNeighbor = 0; iNeighbor < params.nMaxBonds; iNeighbor++) {
-			 		tmpVector = retAddedVectors(tmpAtoms[iAtom].pos, tetrohedronVectors[iTetrohedron + iNeighbor]);
-			 		if (fabs(tmpVector.x) < latticeConstant/sqrt(3.0)+0.2) {
-			 			strcpy(tmpAtoms[nAtomsInNewLayer].symbol, newAtomSymbol);
-			 			tmpAtoms[nAtomsInNewLayer].pos = tmpVector;
-			 			nAtomsInNewLayer++;
-			 		}
-			 	}
+				// Determine which set of tetrohedron vectors will be used to add the new atoms
+				if (! strcmp(params.mainNC.ncCrystalStructure, "wurtzite")) {
+					wurtziteLayerFlag = getZLayer(tmpAtoms[iAtom].pos.z, centerAtomZPos[tmpAtoms[iAtom].isMetalAtomFlag], c);
+					iTetrohedron = (2*tmpAtoms[iAtom].isMetalAtomFlag + wurtziteLayerFlag)*params.nMaxBonds;
+				}
+				else { 
+					iTetrohedron = tmpAtoms[iAtom].isMetalAtomFlag*params.nMaxBonds;
+				}
+				if ( isAtomAMetal(tmpAtoms[iAtom].symbol) ) {
+					strcpy(newAtomSymbol, params.newLayer[iHalfLayer].nonMetalAtomSymbol);
+				}
+				else {
+					strcpy(newAtomSymbol, params.newLayer[iHalfLayer].metalAtomSymbol);
+				}
+				for (iNeighbor = 0; iNeighbor < params.nMaxBonds; iNeighbor++) {
+					tmpVector = retAddedVectors(tmpAtoms[iAtom].pos, tetrohedronVectors[iTetrohedron + iNeighbor]);
+					if (fabs(tmpVector.x) < latticeConstant/sqrt(3.0)+0.2) {
+						strcpy(tmpAtoms[nAtomsInNewLayer].symbol, newAtomSymbol);
+						tmpAtoms[nAtomsInNewLayer].pos = tmpVector;
+						nAtomsInNewLayer++;
+					}
+				}
 			}
 			plusXShift = retZeroVector();
 			minusXShift = retZeroVector();
@@ -983,7 +984,7 @@ int addTetrohedronAtoms(atom *atoms, char *newAtomSymbol, vector origAtomPos, ve
 		atoms[iTetrohedron].pos = retAddedVectors(origAtomPos, tetrohedronVectors[iTetrohedron]);
 	}
 
- 	return nNewAtoms;
+	return nNewAtoms;
 } 
 
 /****************************************************************************/
@@ -1044,10 +1045,13 @@ double retLatticeConstant(char *ncCrystalStructure, char *atomSymbol1, char *ato
 	}
 	else if (! strcmp(atomSymbol1, "In")) {
 		if (! strcmp(atomSymbol2, "As") && ! strcmp(ncCrystalStructure, "zincblende")) latticeConstant = AInAsZB;
-                else if (! strcmp(atomSymbol2, "P") && ! strcmp(ncCrystalStructure, "zincblende")) latticeConstant = AInPZB;
+		else if (! strcmp(atomSymbol2, "P") && ! strcmp(ncCrystalStructure, "zincblende")) latticeConstant = AInPZB;
+		else if (! strcmp(atomSymbol2, "P") && ! strcmp(ncCrystalStructure, "wurtzite")) latticeConstant = AInPWZ;
 	}
 	else if (! strcmp(atomSymbol1, "Ga")) {
 		if (! strcmp(atomSymbol2, "As") && ! strcmp(ncCrystalStructure, "zincblende")) latticeConstant = AGaAsZB;
+		else if (! strcmp(atomSymbol2, "P") && ! strcmp(ncCrystalStructure, "wurtzite")) latticeConstant = AGaPWZ;
+                else if (! strcmp(atomSymbol2, "P") && ! strcmp(ncCrystalStructure, "zincblende")) latticeConstant = AGaPZB;
 	}
 	else if ( isAtomAMetal(atomSymbol2) ) {
 		latticeConstant = retLatticeConstant(ncCrystalStructure, atomSymbol2, atomSymbol1);
